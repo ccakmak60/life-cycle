@@ -7,21 +7,7 @@ import { Icons } from "@/components/shared/icons"
 import { env } from "@/env.mjs"
 
 export default async function IndexPage() {
-  const { stargazers_count: stars } = await fetch(
-    "https://api.github.com/repos/mickasmt/next-saas-stripe-starter",
-    {
-      ...(env.GITHUB_OAUTH_TOKEN && {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_OAUTH_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-      }),
-      // data will revalidate every hour
-      next: { revalidate: 3600 },
-    },
-  )
-    .then((res) => res.json())
-    .catch((e) => console.log(e));
+
 
 
   return (
@@ -68,10 +54,6 @@ export default async function IndexPage() {
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), "px-4")}
             >
               <Icons.gitHub className="mr-2 size-4" />
-              <p>
-                <span className="hidden sm:inline-block">Star on</span>{" "}GitHub{" "}
-                <span className="font-semibold">{nFormatter(stars)}</span>
-              </p>
             </Link>
           </div>
         </div>
